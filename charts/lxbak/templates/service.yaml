@@ -12,9 +12,9 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-{{- if .Values.service.nodePort }}
+      {{- if .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort }}
-{{- end }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "lxbak.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
