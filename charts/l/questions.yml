@@ -10,7 +10,7 @@ questions:
   group: "容器镜像"
   subquestions:
   - variable: image.repository
-    default: "hub.i-soft.com.cn:5080/lxapp/bakweb"
+    default: "wang30/web"
     description: "备份软件image名称"
     type: string
     label: 备份软件Image名称
@@ -19,14 +19,25 @@ questions:
     description: "image tag"
     type: string
     label: 镜像Tag
-- variable: service.nodePort
-  default: ""
-  description: "备份软件端口号(设置端口号: 30000-32767)"
-  type: int
-  min: 30000
-  max: 32767
-  label: 服务端口
-  group: "备份软件服务端口"
+- variable: service.type
+  default: "NodePort"
+  description: "备份服务类型"
+  type: enum
+  options:
+    - "ClusterIP"
+    - "NodePort"
+  required: true
+  label: 备份服务类型
+  show_subquestion_if: "NodePort"
+  group: "备份服务"
+  subquestions:
+  - variable: service.nodePort
+    default: ""
+    description: "NodePort port number(to set explicitly, choose port between 30000-32767)"
+    type: int
+    min: 30000
+    max: 32767
+    label: 服务端口
 - variable: persistence.enabled
   default: "false"
   description: "备份软件本地路径配置"
